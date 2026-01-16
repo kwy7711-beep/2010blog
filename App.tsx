@@ -205,7 +205,7 @@ const generateDummyPosts = (): Post[] => {
   return posts;
 };
 
-// Initial Mock Data (Counts remain high to simulate popularity)
+// Initial Mock Data
 const INITIAL_CATEGORIES: Category[] = [
   { id: 'inso', name: '★추천인소★', count: 124 },
   { id: 'casting', name: '가상캐스팅', count: 42 },
@@ -236,20 +236,20 @@ export default function App() {
     <div className="min-h-screen pb-10">
       <NaverGlobalHeader />
 
-      {/* Main Blog Container - Responsive Width */}
-      <div className="w-full max-w-[980px] mx-auto md:mt-4 bg-white shadow-sm border border-[#ccc] pb-4">
+      {/* Main Blog Container */}
+      <div className="w-full max-w-[980px] mx-auto md:mt-4 bg-white shadow-sm border border-[#ccc] pb-4 overflow-hidden">
         
         {/* Blog Top Header (Banner) */}
         <div className="h-[120px] md:h-[180px] bg-slate-200 relative mb-4 overflow-hidden" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?q=80&w=1000&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-pink-900/10 mix-blend-overlay"></div>
-            <div className="absolute top-4 left-4 md:top-6 md:left-8 text-white shadow-md z-10">
+            <div className="absolute top-4 left-4 md:top-6 md:left-8 text-white shadow-md z-10 text-left">
                 <h1 className="text-[20px] md:text-[26px] font-bold font-serif mb-1 drop-shadow-lg text-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
                   ★ 쩨리의 인소 천국 ★
                 </h1>
                 <p className="text-[10px] md:text-[12px] opacity-90 drop-shadow-sm">인소 없는 세상은... 상상할 수 없어...</p>
             </div>
             
-            {/* Top Menu inside Banner - Scrollable on mobile */}
+            {/* Top Menu inside Banner */}
             <div className="absolute bottom-0 right-0 bg-white/90 px-4 py-1 flex gap-4 text-[11px] font-bold text-[#444] rounded-tl-lg shadow-sm whitespace-nowrap overflow-x-auto max-w-full">
                 <span 
                     className={`cursor-pointer hover:text-[#2DB400] ${viewMode === ViewMode.BLOG ? 'text-[#2DB400]' : ''}`}
@@ -274,11 +274,10 @@ export default function App() {
             </div>
         </div>
 
-        {/* Responsive Flex Layout: Col on Mobile, Row on Desktop */}
-        <div className="flex flex-col md:flex-row gap-4 px-2 md:px-4">
-            {/* Sidebar */}
-            {/* On mobile (flex-col), this comes first naturally. Removed order-2. */}
-            <aside className="w-full md:w-[180px] shrink-0">
+        {/* Layout Grid: Sidebar on left, Content on right in Desktop */}
+        <div className="flex flex-col md:flex-row px-2 md:px-4 gap-4">
+            {/* Sidebar (Left on Desktop, Top on Mobile) */}
+            <aside className="w-full md:w-[180px] shrink-0 order-2 md:order-1">
                 <Sidebar 
                     categories={INITIAL_CATEGORIES}
                     activeCategory={activeCategory}
@@ -290,9 +289,8 @@ export default function App() {
                 />
             </aside>
 
-            {/* Main Content Area */}
-            {/* On mobile, this comes second naturally. Removed order-1. */}
-            <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border border-[#ccc] p-3 md:p-4 relative">
+            {/* Main Content Area (Right on Desktop, Bottom on Mobile) */}
+            <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border border-[#ccc] p-3 md:p-4 relative order-1 md:order-2">
                 
                 {/* Search Bar & Write Button */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-[#2DB400] pb-2 gap-2">
@@ -322,15 +320,6 @@ export default function App() {
                 )}
                 {viewMode === ViewMode.WRITE && (
                     <WritePost onPostCreated={handlePostCreated} onCancel={() => setViewMode(ViewMode.BLOG)} />
-                )}
-                {viewMode === ViewMode.PROLOGUE && (
-                    <div className="grid grid-cols-3 gap-2">
-                        {Array.from({length: 9}).map((_, i) => (
-                            <div key={i} className="aspect-square bg-gray-100 border border-[#eee] flex items-center justify-center text-[#ccc] text-[10px] relative">
-                                <span className="absolute bottom-1 right-1">사진 {i+1}</span>
-                            </div>
-                        ))}
-                    </div>
                 )}
             </main>
         </div>

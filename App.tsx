@@ -114,92 +114,20 @@ const generateDummyPosts = (): Post[] => {
     cyworldLink: 'https://www.cyworld.com'
   });
 
-  // 2. Casting Posts (Exactly 10 unique items)
-  const castingTitles = [
-    "[가캐] 서열0위 길들이기 - 설휘영(강지한) & 윤하늘(천은비) 싱크 100% 도전",
-    "서열0위 길들이기 영화화된다면? 휘영이는 무조건 이분...",
-    "[투표] 서열0위 설휘영 역할, 반휘혈vs류신우 누가 더 어울림?",
-    "늑대의 유혹 - 반해원 역할에 신비오님 어때요? (이미지 有)",
-    "그놈은 멋있었다 - 지은성 역할 가상캐스팅 (태클 ㄴㄴ)",
-    "도레미파솔라시도 - 은규 역할에 얼짱 설우석님 추천합니다",
-    "나쁜남자가 끌리는 이유 - 강지한 실사판 ㄷㄷ (사진첨부)",
-    "[요청] 내 남자친구는 일진 가캐 부탁드려요!! (급함)",
-    "악마의 키스 - 여주 역할 추천좀 해주세요 ㅠㅠ (청순가련st)",
-    "사악소녀교사일기 - 건방진 남주 역할 모음 (스압주의)"
-  ];
-
-  castingTitles.forEach((title, i) => {
-    posts.push({
-      id: `casting-${i}`,
-      category: 'casting',
-      title: title,
-      content: '', // No content for list view
-      date: `2010.10.${14 - i}`,
-      comments: Array.from({ length: Math.floor(Math.random() * 8) }).map((_, idx) => ({
-        id: `c-cast-${i}-${idx}`,
-        author: '익명',
-        content: '퍼가요~',
-        date: '2010.10.14'
-      })),
-      likes: Math.floor(Math.random() * 100) + 20
-    });
-  });
-
-  // 3. Ulzzang Posts (Exactly 10 unique items)
-  const ulzzangTitles = [
-    "레전드 얼짱 반휘혈님 최근 미니홈피 사진 털이 (존잘주의)",
-    "[충격] 천은비님 실물 후기... 진짜 인형인줄 알았음",
-    "강지한님 쇼핑몰 모델 시절 희귀사진 (저장필수!!)",
-    "류신우 vs 설우석 - 님들의 선택은? (투표ㄱㄱ)",
-    "요즘 뜨는 신인 얼짱 한소율님 아시나요? 대박 예쁨",
-    "[정보] 백장미님이 쓰는 틴트 정보 공유함 (에뛰드 아님)",
-    "얼짱시대 시즌4 출연자 명단 유출??? (헐 대박)",
-    "민도윤님 오늘자 홍대 목격담 ㄷㄷ 키 진짜 큼",
-    "얼짱 커플 유다인♥신비오 100일 기념 사진 (부러움 주의)",
-    "과거 논란 없는 클린한 얼짱 추천좀요..."
-  ];
-
-  ulzzangTitles.forEach((title, i) => {
-    posts.push({
-      id: `ulzzang-${i}`,
-      category: 'ulzzang',
-      title: title,
-      content: '',
-      date: `2010.10.${14 - i}`,
-      comments: Array.from({ length: Math.floor(Math.random() * 20) }).map((_, idx) => ({
-        id: `c-ul-${i}-${idx}`,
-        author: '얼짱팬',
-        content: '와 미쳤다...',
-        date: '2010.10.13'
-      })),
-      likes: Math.floor(Math.random() * 300) + 50
-    });
-  });
-
-  // 4. Diary Posts (Exactly 10 unique items)
-  const diaryTitles = [
-    "오늘 날씨 진짜 우울하다... (비오는날 싫어)",
-    "학원 땡땡이 치고 노래방 갔음 ㅋㅋ (엄마한텐 비밀)",
-    "체육대회 반티 정함!! 붉은악마 컨셉 어때?",
-    "중간고사 망함... 평균 10점 떨어짐 ㅠㅠ 죽고싶다",
-    "싸이 투데이수 대박 ㅋㅋ 1000명 돌파 자축",
-    "일촌신청 좀 받아줘... 파도타기 하다가 외로움",
-    "남친이랑 헤어짐... 다시는 사랑 안해 (비공개)",
-    "오늘 급식 최악 ㅡㅡ 코다리 강정 실화냐",
-    "새로 산 틴트 색깔 존예 (디올 어딕트 저렴이)",
-    "짝남이 나한테 말걸었다!!! 심장 터지는줄 >_<"
-  ];
-
-  diaryTitles.forEach((title, i) => {
-    posts.push({
-      id: `diary-${i}`,
-      category: 'diary',
-      title: title,
-      content: '',
-      date: `2010.10.${14 - i}`,
-      comments: [],
-      likes: Math.floor(Math.random() * 15)
-    });
+  // 2-4. Other Dummy Posts
+  const categories = ['casting', 'ulzzang', 'diary'] as const;
+  categories.forEach(cat => {
+    for(let i=0; i<10; i++) {
+        posts.push({
+            id: `${cat}-${i}`,
+            category: cat,
+            title: `[${cat}] 2010년 그 시절 감성 게시물 ${i+1}`,
+            content: '',
+            date: `2010.10.${14-i}`,
+            comments: [],
+            likes: Math.floor(Math.random() * 50)
+        });
+    }
   });
 
   return posts;
@@ -236,7 +164,7 @@ export default function App() {
     <div className="min-h-screen pb-10">
       <NaverGlobalHeader />
 
-      {/* Main Blog Container */}
+      {/* Main Blog Container - PC width 980px is standard for Naver at that time */}
       <div className="w-full max-w-[980px] mx-auto md:mt-4 bg-white shadow-sm border border-[#ccc] pb-4 overflow-hidden">
         
         {/* Blog Top Header (Banner) */}
@@ -274,10 +202,11 @@ export default function App() {
             </div>
         </div>
 
-        {/* Layout Grid: Sidebar on left, Content on right in Desktop */}
+        {/* Layout Grid: Classic Side-by-Side */}
         <div className="flex flex-col md:flex-row px-2 md:px-4 gap-4">
-            {/* Sidebar (Left on Desktop, Top on Mobile) */}
-            <aside className="w-full md:w-[180px] shrink-0 order-2 md:order-1">
+            
+            {/* Sidebar (Always Left on PC) */}
+            <aside className="w-full md:w-[180px] shrink-0 order-1">
                 <Sidebar 
                     categories={INITIAL_CATEGORIES}
                     activeCategory={activeCategory}
@@ -289,8 +218,8 @@ export default function App() {
                 />
             </aside>
 
-            {/* Main Content Area (Right on Desktop, Bottom on Mobile) */}
-            <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border border-[#ccc] p-3 md:p-4 relative order-1 md:order-2">
+            {/* Main Content Area (Always Right on PC) */}
+            <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border border-[#ccc] p-3 md:p-4 relative order-2">
                 
                 {/* Search Bar & Write Button */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-[#2DB400] pb-2 gap-2">

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { NaverGlobalHeader } from './components/NaverGlobalHeader';
-import { Sidebar } from './components/Sidebar';
-import { PostList } from './components/PostList';
-import { Guestbook } from './components/Guestbook';
-import { WritePost } from './components/WritePost';
-import { Post, Category, ViewMode } from './types';
+import { NaverGlobalHeader } from './components/NaverGlobalHeader.tsx';
+import { Sidebar } from './components/Sidebar.tsx';
+import { PostList } from './components/PostList.tsx';
+import { Guestbook } from './components/Guestbook.tsx';
+import { WritePost } from './components/WritePost.tsx';
+import { Post, Category, ViewMode } from './types.ts';
 
 const generateDummyPosts = (): Post[] => {
   const posts: Post[] = [];
@@ -94,10 +94,8 @@ export default function App() {
     <div className="min-h-screen bg-[#e4e4e4] pb-10">
       <NaverGlobalHeader />
 
-      {/* Main Blog Container - PC width 980px standard */}
       <div className="w-full max-w-[980px] mx-auto md:mt-4 bg-white shadow-sm border border-[#ccc] pb-6">
         
-        {/* Blog Top Header (Banner) */}
         <div className="h-[180px] bg-slate-200 relative mb-4 overflow-hidden" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1513002749550-c59d786b8e6c?q=80&w=1000&auto=format&fit=crop)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="absolute inset-0 bg-pink-900/10 mix-blend-overlay"></div>
             <div className="absolute top-8 left-8 text-white z-10 text-left">
@@ -107,7 +105,6 @@ export default function App() {
                 <p className="text-[12px] opacity-90">인소 없는 세상은... 상상할 수 없어...</p>
             </div>
             
-            {/* Top Menu inside Banner (Photolog Removed) */}
             <div className="absolute bottom-0 right-0 bg-white/90 px-6 py-2 flex gap-4 text-[12px] font-bold text-[#444] rounded-tl-lg shadow-sm">
                 <span 
                     className={`cursor-pointer hover:text-[#2DB400] ${viewMode === ViewMode.BLOG ? 'text-[#2DB400]' : ''}`}
@@ -116,11 +113,7 @@ export default function App() {
                     블로그
                 </span>
                 <span className="text-[#ccc]">|</span>
-                <span 
-                    className="text-[#999] cursor-not-allowed"
-                >
-                    프롤로그
-                </span>
+                <span className="text-[#999] cursor-not-allowed">프롤로그</span>
                 <span className="text-[#ccc]">|</span>
                 <span 
                     className={`cursor-pointer hover:text-[#2DB400] ${viewMode === ViewMode.GUESTBOOK ? 'text-[#2DB400]' : ''}`}
@@ -131,10 +124,7 @@ export default function App() {
             </div>
         </div>
 
-        {/* Layout Grid: Classic 2010 PC Sidebar Left, Content Right */}
         <div className="flex px-4 gap-6">
-            
-            {/* Sidebar (Left side) */}
             <aside className="w-[180px] shrink-0">
                 <Sidebar 
                     categories={INITIAL_CATEGORIES}
@@ -147,10 +137,7 @@ export default function App() {
                 />
             </aside>
 
-            {/* Main Content Area (Right side) */}
             <main className="flex-1 bg-white min-h-[700px] border border-[#eee] p-6 relative shadow-inner">
-                
-                {/* Search Bar & Write Button */}
                 <div className="flex justify-between items-center mb-6 border-b border-[#2DB400] pb-2">
                     <div className="text-[11px] text-[#666]">
                         <span className="text-[#2DB400] font-bold">오늘의 주제:</span> 짝사랑...
@@ -169,7 +156,6 @@ export default function App() {
                     </div>
                 </div>
 
-                {/* Content Rendering */}
                 {viewMode === ViewMode.BLOG && (
                     <PostList posts={filteredPosts} loading={false} activeCategory={activeCategory} />
                 )}
@@ -183,7 +169,6 @@ export default function App() {
         </div>
       </div>
       
-      {/* Footer */}
       <footer className="w-full max-w-[980px] mx-auto mt-6 text-center text-[11px] text-[#888] pb-10">
          <div className="mb-2">
             <span>개인정보취급방침</span> | <span>이용약관</span> | <span>블로그팀 블로그</span>

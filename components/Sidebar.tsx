@@ -1,5 +1,5 @@
 import React from 'react';
-import { Category } from '../types';
+import { Category } from '../types.ts';
 
 interface SidebarProps {
   categories: Category[];
@@ -13,7 +13,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ categories, activeCategory, on
     <div className="w-full flex flex-col gap-4">
       {/* Profile Widget */}
       <div className="bg-white border border-[#ccc] p-3 text-center rounded-sm">
-        {/* Responsive profile image size for mobile vs desktop if needed, currently fixed is fine or can be flex */}
         <div className="flex flex-row md:flex-col items-center md:justify-center gap-4 md:gap-0">
             <div className="w-[80px] h-[80px] md:w-[150px] md:h-[150px] shrink-0 mx-auto bg-gray-100 border border-[#eee] mb-0 md:mb-2 overflow-hidden relative group">
                 <img 
@@ -69,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ categories, activeCategory, on
         </ul>
       </div>
 
-      {/* Music Player Widget (Visual Only) - Hide on mobile to save space */}
+      {/* Music Player Widget (Visual Only) */}
       <div className="bg-white border border-[#ccc] p-2 hidden md:block">
          <div className="text-[11px] font-bold text-[#333] mb-1">뮤직 플레이어</div>
          <div className="bg-gray-100 h-[20px] flex items-center px-1 text-[10px] text-[#555] border border-[#ddd] overflow-hidden whitespace-nowrap">
@@ -82,13 +81,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ categories, activeCategory, on
          </div>
       </div>
       
-      {/* Calendar Widget (Simplified) - Hide on mobile */}
+      {/* Calendar Widget */}
       <div className="bg-white border border-[#ccc] p-2 text-center hidden md:block">
         <div className="text-[11px] font-bold text-[#2DB400] mb-2">2010년 10월</div>
         <div className="grid grid-cols-7 text-[10px] gap-1 text-[#666]">
             <span className="text-red-500">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span className="text-blue-500">토</span>
             {Array.from({length: 31}).map((_, i) => (
-                <span key={i} className={`hover:bg-[#eee] cursor-pointer rounded-sm ${i === 14 ? 'bg-[#2DB400] text-white font-bold' : ''}`}>
+                <span key={i} className={`hover:bg-[#eee] cursor-pointer rounded-sm ${i === 13 ? 'bg-[#2DB400] text-white font-bold' : ''}`}>
                     {i+1}
                 </span>
             ))}

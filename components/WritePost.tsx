@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { generateNostalgicPost } from '../services/geminiService';
-import { Post } from '../types';
+import { generateNostalgicPost } from '../services/geminiService.ts';
+import { Post } from '../types.ts';
 
 interface WritePostProps {
   onPostCreated: (post: Post) => void;

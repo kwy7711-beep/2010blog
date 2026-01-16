@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Sweet Blog 2010</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Simulate the classic Gulim/Dotum look common in 2010 Korean web */
+      body {
+        font-family: "Gulim", "Dotum", "AppleGothic", sans-serif;
+        font-size: 12px;
+        color: #666;
+        background-color: #e4e4e4; /* Common background pattern color */
+      }
+      /* Custom scrollbar to match the era if possible, but keep it simple */
+      .dot-line {
+        background-image: linear-gradient(to right, #ccc 33%, rgba(255,255,255,0) 0%);
+        background-position: bottom;
+        background-size: 3px 1px;
+        background-repeat: repeat-x;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 interface GuestbookEntry {
@@ -6,6 +7,7 @@ interface GuestbookEntry {
   content: string;
   date: string;
   reply?: string;
+  replyAuthor?: string; // 답글 작성자 이름 필드 추가
 }
 
 const RANDOM_REPLIES = [
@@ -43,7 +45,14 @@ const RANDOM_REPLIES = [
 
 export const Guestbook: React.FC = () => {
   const [entries, setEntries] = useState<GuestbookEntry[]>([
-    { id: '1', author: '이혜지', content: '야 너 왜 학교 안왔어?O_O 쌤이 너 찾더라 ㅋㅋㅋ', date: '2010.10.14 14:22', reply: '아 진짜? ㅠㅠ 나 배아파서... 내일 갈게' },
+    { 
+      id: '1', 
+      author: '이혜지', 
+      content: '야 너 왜 학교 안왔어?O_O 쌤이 너 찾더라 ㅋㅋㅋ', 
+      date: '2010.10.14 14:22', 
+      reply: '아 진짜? ㅠㅠ 나 배아파서... 내일 갈게',
+      replyAuthor: '쩨리' // 기존 답글은 진짜 쩨리
+    },
   ]);
   const [newContent, setNewContent] = useState('');
   const [loading, setLoading] = useState(false);
@@ -68,7 +77,8 @@ export const Guestbook: React.FC = () => {
     setTimeout(() => {
         const randomReply = RANDOM_REPLIES[Math.floor(Math.random() * RANDOM_REPLIES.length)];
         
-        setEntries(prev => prev.map(e => e.id === newId ? { ...e, reply: randomReply } : e));
+        // 새로운 답글은 가짜 쩨리인 '쩰리'가 작성함
+        setEntries(prev => prev.map(e => e.id === newId ? { ...e, reply: randomReply, replyAuthor: '쩰리' } : e));
         setLoading(false);
     }, 800);
   };
@@ -117,12 +127,14 @@ export const Guestbook: React.FC = () => {
                 
                 {/* Reply Section */}
                 {entry.reply ? (
-                    <div className="ml-4 mt-2 bg-[#f0f9ff] p-2 border border-[#dceef9] flex gap-2 items-start">
-                        <span className="text-[#2DB400] font-bold text-[11px] whitespace-nowrap">쩨리:</span>
+                    <div className={`ml-4 mt-2 p-2 border flex gap-2 items-start ${entry.replyAuthor === '쩰리' ? 'bg-[#fff0f0] border-red-100' : 'bg-[#f0f9ff] border-[#dceef9]'}`}>
+                        <span className={`font-bold text-[11px] whitespace-nowrap ${entry.replyAuthor === '쩰리' ? 'text-red-500' : 'text-[#2DB400]'}`}>
+                            {entry.replyAuthor || '쩨리'}:
+                        </span>
                         <span className="text-[11px] text-[#555]">{entry.reply}</span>
                     </div>
                 ) : loading && entry.id === entries[0].id ? (
-                    <div className="ml-4 mt-2 text-[10px] text-[#999] italic">쩨리님이 답글 입력 중...</div>
+                    <div className="ml-4 mt-2 text-[10px] text-[#999] italic">쩰리님이 답글 입력 중...</div>
                 ) : null}
             </div>
         ))}

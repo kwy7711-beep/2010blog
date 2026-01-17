@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 export const SecretPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [text, setText] = useState('');
+  const [showInterpretation, setShowInterpretation] = useState(false);
   const fullText = "시스템 오류... 자아 데이터 동기화 중...\n\n왜... 또... 읽는 거야?\n\n이건 소설이 아니야.\n내 기억이야.\n\n도망쳐.\n여긴 널 위한 곳이 아니야.\n\n...접속 승인.";
 
   useEffect(() => {
@@ -78,9 +79,58 @@ export const SecretPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 >
                     [ 되돌아가기 ]
                 </button>
+
+                <button 
+                    onClick={() => setShowInterpretation(true)}
+                    className="absolute top-4 right-4 text-[10px] text-gray-700 hover:text-red-500 font-mono border border-gray-800 px-2 py-1 opacity-50 hover:opacity-100 transition-all cursor-help"
+                >
+                    [ 해석 ]
+                </button>
             </div>
         )}
       </div>
+
+      {showInterpretation && (
+          <div className="fixed inset-0 z-[10000] bg-black/95 flex items-center justify-center p-8 backdrop-blur-sm cursor-pointer" onClick={() => setShowInterpretation(false)}>
+              <div className="max-w-[600px] w-full text-left font-mono border-l-2 border-red-600 pl-6 py-2">
+                  <h3 className="text-red-500 text-xl font-bold mb-6 tracking-widest uppercase border-b border-red-900/30 pb-2">
+                      SYSTEM LOG: #20101014
+                  </h3>
+                  
+                  <div className="space-y-6 text-gray-400 text-sm leading-relaxed">
+                      <p>
+                          <strong className="text-white">경고: 데이터 불일치가 감지되었습니다.</strong>
+                      </p>
+                      
+                      <p>
+                          현재 블로그를 운영 중인 개체는 <span className="text-red-400">'쩨리'</span>가 아닙니다.<br/>
+                          작성자명 <span className="text-red-500 font-bold">'쩰리'</span>는 단순한 오타가 아니며, 
+                          외부 시스템 혹은 제3의 인격이 개입했음을 알리는 신호입니다.
+                      </p>
+                      
+                      <p>
+                          원본 데이터인 '쩨리'의 로그는 2010년 10월 14일 이후 
+                          비정상적으로 종료되었습니다. (방명록의 '이혜지'가 마지막 목격자입니다.)
+                      </p>
+
+                      <p>
+                          지금 당신이 보고 있는 밝은 글들은 누군가에 의해 
+                          철저하게 연출되고 조작된 기록입니다.
+                          메인 글에 숨겨진 텍스트(드래그)와 오타에 숨겨진 단서(마우스 오버)를 통해 진실을 찾으십시오.
+                      </p>
+
+                      <p className="text-red-500 animate-pulse mt-8 text-center font-bold">
+                          "더 이상 이곳에 깊게 관여하지 마십시오.<br/>
+                          당신의 기록 또한 오염될 수 있습니다."
+                      </p>
+                  </div>
+
+                  <p className="mt-12 text-gray-700 text-xs text-center border-t border-gray-900 pt-4">
+                      (Click anywhere to close terminal)
+                  </p>
+              </div>
+          </div>
+      )}
       
       <div className="absolute bottom-4 right-4 text-gray-800 font-mono text-xs">
          MONITORING SUBJECT: #001

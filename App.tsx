@@ -15,7 +15,7 @@ const generateDummyPosts = (): Post[] => {
     id: 'post-rank0',
     category: 'inso',
     title: '[인소추천] 서열0위 길들이기 시즌2 /미완결/명대사/가캐/다운ㅇ',
-    content: `안냐세요... 쩨리입니다... >_<
+    content: `안냐세요... [clue]쩰리[/clue]입니다... >_<
     
     오늘 가져온 건 저번에 대박 쳤던 그 소설!!
     ★ 서열0위 길들이기 시즌2 - 3년 후, 뒤틀린 재회 ★
@@ -92,7 +92,13 @@ const generateDummyPosts = (): Post[] => {
     시즌1 안 보신 분들은 요약본 먼저 읽으셔야 이해됨!
     (신채아가 얼마나 나쁜 X인지 알 수 있음...)
     
-    퍼가실 땐 덧글 필수! 불펌하면 신고함!! 凸`,
+    퍼가실 땐 덧글 필수! 불펌하면 신고함!! 凸
+    
+    
+    [hidden]...사실 이 모든 건 거짓말이야...[/hidden]
+    [hidden]...쩨리는 이곳에 없어...[/hidden]
+    [hidden]...너도 이곳을 벗어날 수 없어...[/hidden]
+    [hidden]...도망쳐...[/hidden]`,
     date: '2010.10.14',
     comments: [
       { id: 'c1', author: '휘영앓이', content: '와 대박 휘영이 가캐 싱크로율 100% ㅠㅠㅠㅠㅠ', date: '2010.10.14' },

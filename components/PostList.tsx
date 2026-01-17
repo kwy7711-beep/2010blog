@@ -50,15 +50,44 @@ export const PostList: React.FC<PostListProps> = ({ posts, loading, activeCatego
         );
       }
 
-      const parts = line.split(/(\[(?:pink|blue)\].*?\[\/(?:pink|blue)\])/g);
+      // Regex updated to include [clue] tag
+      const parts = line.split(/(\[(?:pink|blue|hidden|clue)\].*?\[\/(?:pink|blue|hidden|clue)\])/g);
 
       return (
         <React.Fragment key={i}>
           {parts.map((part, index) => {
-              const colorMatch = part.match(/^\[(pink|blue)\](.*?)\[\/\1\]$/);
+              const colorMatch = part.match(/^\[(pink|blue|hidden|clue)\](.*?)\[\/\1\]$/);
               if (colorMatch) {
-                  const colorClass = colorMatch[1] === 'pink' ? 'text-[#ff1493]' : 'text-[#0000ff]';
-                  return <span key={index} className={`font-bold ${colorClass}`}>{colorMatch[2]}</span>;
+                  const type = colorMatch[1];
+                  const text = colorMatch[2];
+                  
+                  if (type === 'hidden') {
+                      return (
+                        <span 
+                          key={index} 
+                          className="text-white selection:bg-red-600 selection:text-white cursor-text text-[10px]"
+                        >
+                          {text}
+                        </span>
+                      );
+                  }
+
+                  if (type === 'clue') {
+                      return (
+                          <span key={index} className="relative group cursor-help inline-block">
+                              <span className="group-hover:text-red-500 group-hover:font-bold transition-colors duration-100 border-b border-dotted border-gray-400 group-hover:border-red-500">
+                                  {text}
+                              </span>
+                              {/* Hover Tooltip Effect */}
+                              <span className="absolute -top-6 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-red-500 text-[9px] px-2 py-1 font-mono z-10 whitespace-nowrap border border-red-500 shadow-lg pointer-events-none">
+                                  ⚠ ID_MISMATCH
+                              </span>
+                          </span>
+                      );
+                  }
+
+                  const colorClass = type === 'pink' ? 'text-[#ff1493]' : 'text-[#0000ff]';
+                  return <span key={index} className={`font-bold ${colorClass}`}>{text}</span>;
               }
               return <span key={index}>{part}</span>;
           })}

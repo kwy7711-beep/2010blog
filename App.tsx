@@ -97,7 +97,8 @@ const generateDummyPosts = (): Post[] => {
     comments: [
       { id: 'c1', author: '휘영앓이', content: '와 대박 휘영이 가캐 싱크로율 100% ㅠㅠㅠㅠㅠ', date: '2010.10.14' },
       { id: 'c2', author: '권선징악', content: '하늘이 너무 청순하다... 채아랑 비교됨 ㅡㅡ', date: '2010.10.14' },
-      { id: 'c3', author: '하늘천사', content: '하늘이 이제 좀 행복하려는데 건드리지 마라 진짜 ㅡㅡ 휘영이가 지켜주겠지?', date: '2010.10.15' }
+      { id: 'c3', author: '하늘천사', content: '하늘이 이제 좀 행복하려는데 건드리지 마라 진짜 ㅡㅡ 휘영이가 지켜주겠지?', date: '2010.10.15' },
+      { id: 'c4', author: 'ㅇㅇ', content: '텍본안에 오류있는거 같은데요?', date: '2010.10.15', isSecret: true }
     ],
     likes: 1024,
     attachmentName: '[텍본]야화_서열0위 길들이기2_미완결.txt',

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Category } from '../types.ts';
 
@@ -29,10 +30,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ categories, activeCategory, on
                 인소 광팬♥<br/>
                 얼짱시대 광팬♥<br/>
                 (인소광 / 얼짱시대/ 프사는 얼짱 주혜선님)
-                </div>
-                <div className="flex md:justify-center gap-1 text-[11px] text-[#666]">
-                    <button className="border border-[#ddd] px-1 bg-[#f9f9f9] hover:bg-white">관리</button>
-                    <button className="border border-[#ddd] px-1 bg-[#f9f9f9] hover:bg-white">통계</button>
                 </div>
             </div>
         </div>

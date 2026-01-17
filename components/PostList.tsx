@@ -11,6 +11,15 @@ interface PostListProps {
 
 export const PostList: React.FC<PostListProps> = ({ posts, loading, activeCategory, onOpenSecret }) => {
   const [activeNotepad, setActiveNotepad] = useState<string | null>(null);
+  const [revealedSecrets, setRevealedSecrets] = useState<Set<string>>(new Set());
+
+  const toggleSecret = (id: string) => {
+    setRevealedSecrets(prev => {
+        const next = new Set(prev);
+        if (!next.has(id)) next.add(id);
+        return next;
+    });
+  };
 
   const isListViewMode = ['casting', 'ulzzang', 'diary'].includes(activeCategory);
 
@@ -116,6 +125,66 @@ export const PostList: React.FC<PostListProps> = ({ posts, loading, activeCatego
 
   return (
     <div className="space-y-8 relative">
+      <style>{`
+        .glitch-text-readable {
+            background-color: transparent;
+            color: #ff0000;
+            font-family: "Gulim", "Dotum", monospace;
+            font-weight: bold;
+            display: inline-block;
+            position: relative;
+            text-shadow: 1px 0px 0px rgba(0,0,0,0.1);
+            animation: glitch-skew 3s infinite;
+        }
+        .glitch-text-readable::before,
+        .glitch-text-readable::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            opacity: 0.8;
+        }
+        .glitch-text-readable::before {
+            color: #00ffff;
+            z-index: -1;
+            transform: translate(-1px, 0);
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        .glitch-text-readable::after {
+            color: #ff00ff;
+            z-index: -2;
+            transform: translate(1px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            5% { transform: skew(10deg); }
+            10% { transform: skew(-10deg); }
+            15% { transform: skew(0deg); }
+            100% { transform: skew(0deg); }
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 80% 0); }
+            20% { clip-path: inset(60% 0 10% 0); }
+            40% { clip-path: inset(40% 0 50% 0); }
+            60% { clip-path: inset(80% 0 5% 0); }
+            80% { clip-path: inset(10% 0 70% 0); }
+            100% { clip-path: inset(30% 0 20% 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(10% 0 60% 0); }
+            20% { clip-path: inset(30% 0 20% 0); }
+            40% { clip-path: inset(70% 0 10% 0); }
+            60% { clip-path: inset(20% 0 50% 0); }
+            80% { clip-path: inset(50% 0 30% 0); }
+            100% { clip-path: inset(0% 0 90% 0); }
+        }
+      `}</style>
+      
       {/* Notepad Modal Layer */}
       {activeNotepad && (() => {
           const post = posts.find(p => p.id === activeNotepad);
@@ -213,15 +282,40 @@ export const PostList: React.FC<PostListProps> = ({ posts, loading, activeCatego
 
           {post.comments.length > 0 && (
              <div className="bg-[#fcfcfc] border-b border-[#eee] p-3 space-y-2 text-left">
-                {post.comments.map(comment => (
-                    <div key={comment.id} className="flex gap-2 items-start text-[11px]">
-                        <span className={`font-bold ${comment.isOwner ? 'text-[#2DB400]' : 'text-[#333]'}`}>
-                            {comment.author}
-                        </span>
-                        <span className="text-[#555] flex-1">{comment.content}</span>
-                        <span className="text-[#999] text-[10px]">{comment.date}</span>
-                    </div>
-                ))}
+                {post.comments.map(comment => {
+                    const isSecretRevealed = revealedSecrets.has(comment.id);
+                    
+                    return (
+                        <div key={comment.id} className="flex gap-2 items-start text-[11px]">
+                            <span className={`font-bold ${comment.isOwner ? 'text-[#2DB400]' : 'text-[#333]'}`}>
+                                {comment.author}
+                            </span>
+                            
+                            <span className="text-[#555] flex-1">
+                                {comment.isSecret && !isSecretRevealed ? (
+                                    <span 
+                                        onClick={() => toggleSecret(comment.id)}
+                                        className="text-[#999] cursor-pointer hover:underline flex items-center gap-1"
+                                    >
+                                        <span className="w-3 h-3 bg-[#ccc] rounded-sm flex items-center justify-center text-[9px] text-white">🔒</span>
+                                        게시글 작성자가 비공개 처리했습니다.
+                                    </span>
+                                ) : comment.isSecret && isSecretRevealed ? (
+                                    <span 
+                                        className="glitch-text-readable select-none" 
+                                        data-text={comment.content}
+                                    >
+                                         {comment.content}
+                                    </span>
+                                ) : (
+                                    comment.content
+                                )}
+                            </span>
+                            
+                            <span className="text-[#999] text-[10px]">{comment.date}</span>
+                        </div>
+                    );
+                })}
              </div>
           )}
         </div>

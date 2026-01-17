@@ -19,6 +19,7 @@ export interface Comment {
   content: string;
   date: string;
   isOwner?: boolean;
+  isSecret?: boolean;
 }
 
 export interface Category {

@@ -208,10 +208,10 @@ const generateDummyPosts = (): Post[] => {
 
 // Initial Mock Data
 const INITIAL_CATEGORIES: Category[] = [
-  { id: 'inso', name: '★추천인소★', count: 124 },
-  { id: 'casting', name: '가상캐스팅', count: 42 },
-  { id: 'ulzzang', name: '얼짱시대', count: 89 },
-  { id: 'diary', name: '비밀일기', count: 15 },
+  { id: 'inso', name: '★추천인소★', count: 10 },
+  { id: 'casting', name: '가상캐스팅', count: 10 },
+  { id: 'ulzzang', name: '얼짱시대', count: 10 },
+  { id: 'diary', name: '비밀일기', count: 10 },
 ];
 
 export default function App() {

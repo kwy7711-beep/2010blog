@@ -332,4 +332,7 @@ export default function App() {
          </div>
          <p>Copyright © <span className="font-bold">NAVER Corp.</span> All Rights Reserved.</p>
       </footer>
-    </div>
+    </div> );
+}
+
+export default App;

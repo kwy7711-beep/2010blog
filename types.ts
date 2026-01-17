@@ -1,3 +1,4 @@
+
 export interface Post {
   id: string;
   category: string;
@@ -30,5 +31,6 @@ export enum ViewMode {
   BLOG = 'BLOG',
   PROLOGUE = 'PROLOGUE',
   GUESTBOOK = 'GUESTBOOK',
-  WRITE = 'WRITE'
+  WRITE = 'WRITE',
+  SECRET = 'SECRET'
 }

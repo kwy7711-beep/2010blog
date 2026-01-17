@@ -5,6 +5,7 @@ import { Sidebar } from './components/Sidebar.tsx';
 import { PostList } from './components/PostList.tsx';
 import { Guestbook } from './components/Guestbook.tsx';
 import { WritePost } from './components/WritePost.tsx';
+import { SecretPage } from './components/SecretPage.tsx';
 import { Post, Category, ViewMode } from './types.ts';
 
 const generateDummyPosts = (): Post[] => {
@@ -232,8 +233,13 @@ export default function App() {
     ? posts.filter(p => p.category === 'inso')
     : posts.filter(p => p.category === activeCategory);
 
+  // 시크릿 모드일 때 전체 앱 UI 교체
+  if (viewMode === ViewMode.SECRET) {
+    return <SecretPage onBack={() => setViewMode(ViewMode.BLOG)} />;
+  }
+
   return (
-    <div className="min-h-screen pb-10">
+    <div className="min-h-screen pb-10 bg-[#e4e4e4]">
       <NaverGlobalHeader />
 
       {/* Main Blog Container */}
@@ -275,9 +281,10 @@ export default function App() {
         </div>
 
         {/* Layout Grid: Sidebar on left, Content on right in Desktop */}
-        <div className="flex flex-col md:flex-row px-2 md:px-4 gap-4">
-            {/* Sidebar (Left on Desktop, Top on Mobile) */}
-            <aside className="w-full md:w-[180px] shrink-0 order-2 md:order-1">
+        <div className="flex flex-col md:flex-row px-0 md:px-4 gap-4">
+            {/* Sidebar: Mobile (Order 1 - Top), Desktop (Order 1 - Left) */}
+            {/* 모바일에서는 사이드바가 위로 올라가서 네비게이션 역할을 합니다 */}
+            <aside className="w-full md:w-[180px] shrink-0 order-1 md:order-1 px-2 md:px-0">
                 <Sidebar 
                     categories={INITIAL_CATEGORIES}
                     activeCategory={activeCategory}
@@ -289,8 +296,8 @@ export default function App() {
                 />
             </aside>
 
-            {/* Main Content Area (Right on Desktop, Bottom on Mobile) */}
-            <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border border-[#ccc] p-3 md:p-4 relative order-1 md:order-2">
+            {/* Main Content: Mobile (Order 2 - Bottom), Desktop (Order 2 - Right) */}
+            <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border-t md:border border-[#ccc] p-3 md:p-4 relative order-2 md:order-2">
                 
                 {/* Search Bar & Write Button */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-[#2DB400] pb-2 gap-2">
@@ -313,7 +320,12 @@ export default function App() {
 
                 {/* Content Switching */}
                 {viewMode === ViewMode.BLOG && (
-                    <PostList posts={filteredPosts} loading={false} activeCategory={activeCategory} />
+                    <PostList 
+                        posts={filteredPosts} 
+                        loading={false} 
+                        activeCategory={activeCategory} 
+                        onOpenSecret={() => setViewMode(ViewMode.SECRET)}
+                    />
                 )}
                 {viewMode === ViewMode.GUESTBOOK && (
                     <Guestbook />
@@ -334,4 +346,3 @@ export default function App() {
       </footer>
     </div> );
 }
-

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { generateNostalgicPost } from '../services/geminiService.ts';
 import { Post } from '../types.ts';
@@ -43,7 +44,7 @@ export const WritePost: React.FC<WritePostProps> = ({ onPostCreated, onCancel })
           value={topic}
           onChange={(e) => setTopic(e.target.value)}
           placeholder="예: 비 오는 날의 우울함, 헤어진 남친 생각, 떡볶이 먹방"
-          className="w-full border border-[#ccc] p-2 text-[12px] focus:outline-none focus:border-[#2DB400]"
+          className="w-full border border-[#ccc] p-2 text-[16px] md:text-[12px] focus:outline-none focus:border-[#2DB400]"
         />
         <p className="text-[11px] text-[#888] mt-1">
             * AI가 2010년 감성으로 글을 작성해줍니다.

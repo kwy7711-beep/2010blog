@@ -100,31 +100,30 @@ export const SecretPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                   </h3>
                   
                   <div className="space-y-6 text-gray-400 text-sm leading-relaxed">
-                      <p className="text-lg text-white font-bold drop-shadow-[0_0_5px_rgba(255,0,0,0.8)] mb-8">
-                          "이 글은 쩨리가 쓴 글이 아닙니다.<br/>
-                          쩨리는 이곳에 없습니다."
+                      <p>
+                          <strong className="text-white">경고: 데이터 불일치가 감지되었습니다.</strong>
                       </p>
                       
                       <p>
-                          <span className="text-red-400 font-bold">&gt;&gt; 분석 결과:</span><br/>
-                          현재 블로그를 운영 중인 '쩰리'는 블로그 주인 '쩨리'를 흉내 내고 있는 알 수 없는 무언가입니다.
-                          작성된 모든 게시물의 말투와 이모티콘 패턴은 99.8% 일치하지만, 감정이 결여되어 있습니다.
+                          현재 블로그를 운영 중인 개체는 <span className="text-red-400">'쩨리'</span>가 아닙니다.<br/>
+                          작성자명 <span className="text-red-500 font-bold">'쩰리'</span>는 단순한 오타가 아니며, 
+                          외부 시스템 혹은 제3의 인격이 개입했음을 알리는 신호입니다.
                       </p>
                       
                       <p>
-                          <span className="text-red-400 font-bold">&gt;&gt; 특이 사항:</span><br/>
-                          방명록의 답글 속도가 비정상적으로 빠르며(0.8초), 
-                          오타(쩰리)를 수정하지 않는 것은 시스템의 자아 데이터가 충돌하고 있음을 의미합니다.
-                          게시글 내 [clue] 태그는 생존자가 남긴 마지막 경고 신호입니다.
+                          원본 데이터인 '쩨리'의 로그는 2010년 10월 14일 이후 
+                          비정상적으로 종료되었습니다. (방명록의 '이혜지'가 마지막 목격자입니다.)
                       </p>
 
                       <p>
-                          지금 당신이 보고 있는 이 화면조차 안전하지 않습니다.
-                          누군가 당신의 접속 기록을 지켜보고 있습니다.
+                          지금 당신이 보고 있는 밝은 글들은 누군가에 의해 
+                          철저하게 연출되고 조작된 기록입니다.<br/> 
+                          메인 글에 숨겨진 텍스트(드래그)와 오타에 숨겨진 단서(마우스 오버)를 통해 진실을 찾으십시오.
                       </p>
 
-                      <p className="text-red-600 animate-pulse mt-12 text-center font-bold text-base tracking-wider">
-                          WARNING: TERMINATE SESSION IMMEDIATELY
+                      <p className="text-red-500 animate-pulse mt-8 text-center font-bold text-base">
+                          "더 이상 이곳에 깊게 관여하지 마십시오.<br/>
+                          당신의 기록 또한 오염될 수 있습니다."
                       </p>
                   </div>
 

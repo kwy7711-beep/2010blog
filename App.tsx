@@ -4,7 +4,6 @@ import { NaverGlobalHeader } from './components/NaverGlobalHeader.tsx';
 import { Sidebar } from './components/Sidebar.tsx';
 import { PostList } from './components/PostList.tsx';
 import { Guestbook } from './components/Guestbook.tsx';
-import { WritePost } from './components/WritePost.tsx';
 import { SecretPage } from './components/SecretPage.tsx';
 import { Post, Category, ViewMode } from './types.ts';
 
@@ -224,11 +223,6 @@ export default function App() {
     setPosts(generateDummyPosts());
   }, []);
 
-  const handlePostCreated = (newPost: Post) => {
-    setPosts([newPost, ...posts]);
-    setViewMode(ViewMode.BLOG);
-  };
-
   const filteredPosts = activeCategory === 'all' 
     ? posts.filter(p => p.category === 'inso')
     : posts.filter(p => p.category === activeCategory);
@@ -299,7 +293,7 @@ export default function App() {
             {/* Main Content: Mobile (Order 2 - Bottom), Desktop (Order 2 - Right) */}
             <main className="flex-1 bg-white min-h-[400px] md:min-h-[600px] border-t md:border border-[#ccc] p-3 md:p-4 relative order-2 md:order-2">
                 
-                {/* Search Bar & Write Button */}
+                {/* Search Bar (글쓰기 버튼 제거됨) */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 border-b border-[#2DB400] pb-2 gap-2">
                     <div className="text-[11px] text-[#666]">
                         <span className="text-[#2DB400] font-bold">오늘의 주제:</span> 짝사랑...
@@ -309,12 +303,6 @@ export default function App() {
                             <input type="text" className="h-[20px] w-[120px] md:w-[150px] text-[11px] px-1 focus:outline-none" />
                             <button className="bg-[#f0f0f0] px-2 text-[10px] border-l border-[#ccc]">검색</button>
                          </div>
-                         <button 
-                            onClick={() => setViewMode(ViewMode.WRITE)}
-                            className="bg-[#2DB400] text-white px-3 h-[22px] text-[11px] font-bold flex items-center shrink-0"
-                         >
-                            글쓰기
-                         </button>
                     </div>
                 </div>
 
@@ -329,9 +317,6 @@ export default function App() {
                 )}
                 {viewMode === ViewMode.GUESTBOOK && (
                     <Guestbook />
-                )}
-                {viewMode === ViewMode.WRITE && (
-                    <WritePost onPostCreated={handlePostCreated} onCancel={() => setViewMode(ViewMode.BLOG)} />
                 )}
             </main>
         </div>

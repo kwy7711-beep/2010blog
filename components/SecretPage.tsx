@@ -67,7 +67,7 @@ export const SecretPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             <div className="mt-12 flex flex-col items-center gap-6">
                 <div className="animate-bounce">
                     <a 
-                        href="https://jjerrii.netlify.app"
+                        href="https://cywd201x.netlify.app"
                         className="border border-red-800 text-red-500 px-8 py-2 hover:bg-red-900 hover:text-white transition-colors font-mono text-sm tracking-[0.5em] inline-block decoration-transparent"
                     >
                         [ 절대 클릭 금지 ]
